@@ -5,7 +5,7 @@ new_key_file=$1
 
 if [ -z ${new_key_file} ]
 then
-    echo "Usage: ${BASH_SOURCE} new_key_file"
+    echo "Usage: $(basename ${BASH_SOURCE}) new_key_file"
     exit 1
 fi
 
