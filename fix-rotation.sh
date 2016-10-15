@@ -9,12 +9,13 @@ then
     exit 1
 fi
 
-mv .gitattributes .gitattributes.tmp
-git add .gitattributes .gitattributes.tmp
+git mv .gitattributes .gitattributes.tmp
 git commit -m "Moved .gitattributes to fix key rotation"
 git pull --no-edit
 git crypt unlock ${new_key_file}
-mv .gitattributes.tmp .gitattributes
-git add .gitattributes .gitattributes.tmp
+git mv .gitattributes.tmp .gitattributes
 git commit -m "Readded .gitattributes to fix key rotation"
-git crypt unlock ${new_key_file}
+for f in $(git crypt status | grep -v "not encrypted" | awk '{ print $2; }')
+do
+    git checkout $f
+done
