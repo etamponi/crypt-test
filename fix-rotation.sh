@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+cd $(dirname ${BASH_SOURCE})
+
 new_key_file=$1
 
 if [ -z ${new_key_file} ]

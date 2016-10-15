@@ -10,7 +10,7 @@ If you want to encrypt a directory named `secrets` and all sub directories, add 
 Rotate symmetric key
 ---
 
-Make sure any changes to .gitattributes is committed, then run `rotate-key.sh $NEW_KEY_FILE` and push.
+Make sure all changes to .gitattributes are committed, then run `rotate-key.sh $NEW_KEY_FILE` and push.
 
 Fix git-crypt after rotation
 ---
