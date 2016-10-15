@@ -17,9 +17,16 @@ checkout_encrypted() {
     done
 }
 
+encrypted_files=$(git crypt status | grep -v "not encrypted" | awk '{ print $2; }')
+
 git mv .gitattributes .gitattributes.tmp
 git commit -m "Moved .gitattributes to fix key rotation"
-checkout_encrypted
+
+for f in ${encrypted_files}
+do
+    git checkout $f
+done
+
 git stash
 git pull --no-edit
 git crypt unlock ${new_key_file}
