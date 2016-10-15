@@ -25,5 +25,6 @@ git pull --no-edit
 git crypt unlock ${new_key_file}
 git mv .gitattributes.tmp .gitattributes
 git commit -m "Readded .gitattributes to fix key rotation"
+checkout_encrypted
 git stash pop
 checkout_encrypted
