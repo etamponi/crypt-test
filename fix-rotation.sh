@@ -26,3 +26,4 @@ for f in ${encrypted_files}
 do
     git checkout $f
 done
+git stash pop
