@@ -20,7 +20,7 @@ Rotate symmetric key
 	done
 	git commit -m "Rotated encryption key"
 
-Fix after pull when symmetric key has changed
+Fix git-crypt after rotation
 ---
 
-Run `fix-rotation.sh`
+Run `fix-rotation.sh $NEW_KEY_FILE` to fix the repository after a pull
