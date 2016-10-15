@@ -23,4 +23,4 @@ Rotate symmetric key
 Fix git-crypt after rotation
 ---
 
-Run `fix-rotation.sh $NEW_KEY_FILE` to fix the repository after a pull
+Run `fix-rotation.sh $NEW_KEY_FILE` to fix the repository after a pull.
