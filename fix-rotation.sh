@@ -17,6 +17,7 @@ checkout_encrypted() {
     done
 }
 
+# Get encrypted files before we remove .gitattributes, that's why we don't use checkout_encrypted
 encrypted_files=$(git crypt status | grep -v "not encrypted" | awk '{ print $2; }')
 
 git mv .gitattributes .gitattributes.tmp
