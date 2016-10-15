@@ -30,7 +30,7 @@ do
 done
 
 # Stash any local change caused by git pull or by our local work
-git stash
+stash_out=$(git stash)
 
 # Pull again, merging the .gitattributes commit
 git pull --no-edit
@@ -46,7 +46,10 @@ git commit -m "Readded .gitattributes to fix key rotation"
 checkout_encrypted
 
 # Pop from stash
-git stash pop
+if [ ${stash_out} != 'No local changes to save\n' ]
+then
+	git stash pop
+fi
 
 # Check again because the last pop may have changed the .gitattributes
 checkout_encrypted
