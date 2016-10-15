@@ -1,4 +1,4 @@
 secrets/** filter=git-crypt diff=git-crypt
 *.key filter=git-crypt diff=git-crypt
 *.cert filter=git-crypt diff=git-crypt
-*.foo filter=git-crypt diff=git-crypt
+*.test filter=git-crypt diff=git-crypt
