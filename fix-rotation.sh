@@ -9,21 +9,21 @@ then
     exit 1
 fi
 
-encrypted_files=$(git crypt status | grep -v "not encrypted" | awk '{ print $2; }')
+checkout_encrypted() {
+    encrypted_files=$(git crypt status | grep -v "not encrypted" | awk '{ print $2; }')
+    for f in ${encrypted_files}
+    do
+        git checkout $f
+    done
+}
 
 git mv .gitattributes .gitattributes.tmp
 git commit -m "Moved .gitattributes to fix key rotation"
-for f in ${encrypted_files}
-do
-    git checkout $f
-done
+checkout_encrypted
 git stash
 git pull --no-edit
 git crypt unlock ${new_key_file}
 git mv .gitattributes.tmp .gitattributes
 git commit -m "Readded .gitattributes to fix key rotation"
-for f in ${encrypted_files}
-do
-    git checkout $f
-done
+checkout_encrypted
 git stash pop
