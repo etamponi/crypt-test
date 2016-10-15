@@ -22,3 +22,5 @@ Rotate symmetric key
 
 Fix after pull when symmetric key has changed
 ---
+
+Run `fix-rotation.sh`
