@@ -1,14 +1,14 @@
 This is a repo that helps me get acquainted with the git-crypt tool
 
 Encrypt a directory
-===================
+---
 
 If you want to encrypt a directory named `secrets` and all sub directories, add this to .gitignore:
 
 	secrets/** filter=git-crypt diff=git-crypt
 
 Rotate symmetric key
-====================
+---
 
 	rm -r .git/git-crypt
 	git crypt init
@@ -18,4 +18,7 @@ Rotate symmetric key
 		touch $f
 		git add $f
 	done
-	git commit -m "Rotate encryption key"
+	git commit -m "Rotated encryption key"
+
+Fix after pull when symmetric key has changed
+---

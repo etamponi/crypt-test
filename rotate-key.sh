@@ -17,4 +17,4 @@ do
     touch $f
     git add $f
 done
-git commit -m "Rotate encryption key"
+git commit -m "Rotated encryption key"
