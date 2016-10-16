@@ -22,8 +22,11 @@ checkout_encrypted() {
 # Get encrypted files before we remove .gitattributes, that's why we don't use checkout_encrypted
 encrypted_files=$(git crypt status | grep -v "not encrypted" | awk '{ print $2; }')
 
-mv .gitattributes .gitattributes.tmp
-git add .gitattributes .gitattributes.tmp
+# Forget that we decrypted the repo
+rm -rf .git/git-crypt
+
+# Forget about encrypted files
+git mv .gitattributes .gitattributes.tmp
 git commit -m "$(hostname) Moved .gitattributes to fix key rotation"
 
 # Revert any local dirtiness that git pull has caused
@@ -36,15 +39,11 @@ done
 stash_out=$(git stash)
 echo ${stash_out}
 
-# Pull again, merging the .gitattributes commit
+# Pull again and merge the previous commit
 git pull --no-edit
 
-# Use new key
-git crypt unlock ${new_key_file}
-
 # Revert the .gitattributes change
-mv .gitattributes.tmp .gitattributes
-git add .gitattributes.tmp .gitattributes
+git mv .gitattributes.tmp .gitattributes
 git commit -m "$(hostname) Readded .gitattributes to fix key rotation"
 
 # Make sure we don't have any dirty encrypted file
@@ -58,6 +57,4 @@ then
 	checkout_encrypted
 fi
 
-# This is needed if both ends edited .gitattributes
-rm -r .git/git-crypt
 git crypt unlock ${new_key_file}
