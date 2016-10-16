@@ -41,6 +41,13 @@ echo ${stash_out}
 
 # Pull again and merge the previous commit
 git pull --no-edit
+# Revert any local dirtiness that git pull has caused
+for f in ${encrypted_files}
+do
+    git checkout $f
+done
+
+git crypt unlock ${new_key_file}
 
 # Revert the .gitattributes change
 git mv .gitattributes.tmp .gitattributes
@@ -57,4 +64,5 @@ then
 	checkout_encrypted
 fi
 
+rm -rf .git/git-crypt
 git crypt unlock ${new_key_file}
