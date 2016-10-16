@@ -22,8 +22,9 @@ checkout_encrypted() {
 # Get encrypted files before we remove .gitattributes, that's why we don't use checkout_encrypted
 encrypted_files=$(git crypt status | grep -v "not encrypted" | awk '{ print $2; }')
 
-git mv .gitattributes .gitattributes.tmp
-git commit -m "Moved .gitattributes to fix key rotation"
+mv .gitattributes .gitattributes.tmp
+git add .gitattributes .gitattributes.tmp
+git commit -m "$(hostname) Moved .gitattributes to fix key rotation"
 
 # Revert any local dirtiness that git pull has caused
 for f in ${encrypted_files}
@@ -42,8 +43,9 @@ git pull --no-edit
 git crypt unlock ${new_key_file}
 
 # Revert the .gitattributes change
-git mv .gitattributes.tmp .gitattributes
-git commit -m "Readded .gitattributes to fix key rotation"
+mv .gitattributes.tmp .gitattributes
+git add .gitattributes.tmp .gitattributes
+git commit -m "$(hostname) Readded .gitattributes to fix key rotation"
 
 # Make sure we don't have any dirty encrypted file
 checkout_encrypted
@@ -52,10 +54,9 @@ checkout_encrypted
 if [ "${stash_out}" != "No local changes to save" ]
 then
 	git stash pop
+	# Check again because the last pop may have changed the .gitattributes
+	checkout_encrypted
 fi
-
-# Check again because the last pop may have changed the .gitattributes
-checkout_encrypted
 
 # This is needed if both ends edited .gitattributes
 rm -r .git/git-crypt
