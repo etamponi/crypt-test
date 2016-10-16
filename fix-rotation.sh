@@ -19,14 +19,20 @@ do
     git checkout $f
 done
 
-# Lock repository and forget key
-git crypt lock
-rm -rf .git/git-crypt
-
 # Stash any local change caused by git pull or by our local work
 stash_out=$(git stash)
 echo ${stash_out}
 
+# Lock repository and forget key
+git crypt lock
+rm -rf .git/git-crypt
+
 # Pull again and unlock with new key file
 git pull
 git crypt unlock ${new_key_file}
+
+# Pop from stash
+if [ "${stash_out}" != "No local changes to save" ]
+then
+        git stash pop
+fi
