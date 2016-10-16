@@ -28,6 +28,7 @@ git crypt lock
 rm -rf .git/git-crypt
 
 # Pull again and unlock with new key file
+git clean -f -d
 git pull
 git crypt unlock ${new_key_file}
 
