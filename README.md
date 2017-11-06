@@ -1,25 +1,27 @@
-This is a repo that helps me get acquainted with the git-crypt tool
+Welcome to the Glitch BETA
+=========================
 
-Usage
----
+Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
 
-Install git-crypt, use it with symmetric key encryption.
+**Glitch** is the friendly commmunity where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
 
-Put `rotate-key.sh` and `fix-rotation.sh` at the root of your git repository.
+Find out more [about Glitch](https://glitch.com/about).
 
-Encrypt a directory
----
 
-If you want to encrypt a directory named `secrets` and all sub directories, add this to .gitattributes:
+Your Project
+------------
 
-	secrets/** filter=git-crypt diff=git-crypt
+On the front-end,
+- edit `public/client.js`, `public/style.css` and `views/index.html`
+- drag in `assets`, like images or music, to add them to your project
 
-Rotate symmetric key
----
+On the back-end,
+- your app starts at `server.js`
+- add frameworks and packages in `package.json`
+- safely store app secrets in `.env` (nobody can see this but you and people you invite)
 
-Make sure all changes to .gitattributes are committed, then run `rotate-key.sh $NEW_KEY_FILE` and push.
 
-Fix git-crypt after rotation
----
+Made by [Fog Creek](https://fogcreek.com/)
+-------------------
 
-Run `fix-rotation.sh $NEW_KEY_FILE` to fix the repository after a pull.
+\ ゜o゜)ノ
